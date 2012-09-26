@@ -45,14 +45,14 @@ but worth mentioning here also)
 
 ##Geolocator API Usage
 
-        #import "TTGeolocatorClient.h"
-        #import "TTGeolocatorClientDelegate.h"
+	#import "TTGeolocatorClient.h"
+	#import "TTGeolocatorClientDelegate.h"
 	#import "TTLocation.h"
 
-        TTGeolocatorClient *geolocatorApi = [[TTGeolocatorClient alloc] initWithAPIKey:@"your_api_token"];
-        [geolocatorApi setDelegate:self]; // check out the "TTGeolocatorClientDelegate section below"
+	TTGeolocatorClient *geolocatorApi = [[TTGeolocatorClient alloc] initWithAPIKey:@"your_api_token"];
+	[geolocatorApi setDelegate:self]; // check out the "TTGeolocatorClientDelegate section below"
 
-        [geolocatorApi geolocate:@"San Francisco, CA"]; // don't URL-encode your geolocator query here!
+	[geolocatorApi geolocate:@"San Francisco, CA"]; // don't URL-encode your geolocator query here!
 
 ##TTGeolocatorClientDelegate
 
