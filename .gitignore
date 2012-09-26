@@ -1,2 +1,5 @@
-threetapsAPI.xcodeproj/project.xcworkspace/
-threetapsAPI.xcodeproj/xcuserdata/
+build/
+DerivedData/
+3taps.xcodeproj/project.xcworkspace/
+3taps.xcodeproj/xcuserdata/
+

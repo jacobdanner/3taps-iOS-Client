@@ -1,72 +1,97 @@
-# 3taps API iOS Wrapper
+# 3taps iOS Client API
 
-The treetapsAPI directory contains the iOS library for the 3taps API wrappers.
-At present, this library is released in source-code format; simply copy the
-entire contents of the "threetapAPI" directory into your source tree and add it
-to your XCode project.  You can then '#include' the necessary interface files
-as you need them.
-
-##Configuration
-
-You will need to obtain an API key from http://3taps.com/developers, and configure
-your application to use your key by setting it as the value in '3taps API Key' in 
-the main plist bundle.
+This version of the 3taps iOS client API is compatible with the new version of
+the 3taps search API and datastructure (see http://3taps.com/developers for the
+latest documentation). Also, please note that this version of the API uses ARC
+and all API calls made under the covers are asynchronous.
 
 ##Pre-requisites
 
-The threetapsAPI library requires the JSON parsing library written by Stig
-Brautaset.  Information about this library can be found at:
+1) Mashery ID -- http://register.3taps.com/member/register
+2) API key for your application -- http://register.3taps.com/apps/register
+3) SBJSON, written by Stig Brautaset (it's included with the source distribution, 
+but worth mentioning here also)
 
-    http://code.google.com/p/json-framework
+##Search API Usage
 
+	#import "TTSearchClient.h"
+	#import "TTSearchClientDelegate.h"
+	#import "TTPost.h"
 
-##Asynchronous API Calls
+	TTSearchClient *searchApi = [[TTSearchClient alloc] initWithAPIKey:@"your_api_token"];
+	[searchApi setDelegate:self]; // check out the "TTSearchClientDelegate section below"
 
-All of the 3taps API calls are executed asynchronously.  That is, you ask the
-3taps API wrapper to make a call to the 3taps server, and you separately
-implement a delegate object which gets sent an appropriate message when the API
-call is completed.  Each of the 3taps API client classes has a corresponding
-delegate protocol, which you must implement in order to respond to the
-completion of an API call.
+	NSMutableDictionary *params = [NSMutableDictionary dictionary];
+	[params setValue:@"CRAIG" forKey:@"source"];
+	[params setValue:@"{make:ford AND model:mustang}" forKey:@"annotations"]; // don't url encode anything!
 
-Note that all the API client delegate methods are optional; you only need to
-implement the delegate methods for the particular API call that you wish to
-make.  The interface for each API client describes the delegate calls which
-can be made in response to that call.
+	[searchApi search:params]; // all the params get URL-encoded as needed under the covers here
 
+##TTSearchClientDelegate
 
-##Unit Testing
+	#pragma mark TTSearchClientDelegate
 
-Because of the nature of the 3taps iOS API wrappers, it is not possible to use
-a standard unit-testing framework for testing the API wrapper classes.
-Instead, a series of testing classes have been defined which test out the
-functionality of the various API clients.  These testing classes can be found
-in the "threetapsAPI/tests" directory, along with a module named "AllTests"
-which will run these various testing classes one after the other.
+	- (void)didReceiveSearchResponse:(NSArray *)results execTimeMs:(int)execTime numResults:(int)numResults {
+		for (NSDictionary *postDict in results) {
+			TTPost *post = [TTPost from:postDict]; // reference model
 
-The example application that comes with the threetapsAPI library provides a
-minimal user interface that includes a single button.  When the user taps on
-this button, the "AllTests" class will be instantiated and run, causing all the
-various unit testing classes to be run one after the other.
+			// do something cool
+		}
 
-All the unit tests write their output to the console log, so you can see the
-results appear in the XCode console window.
+		dispatch_async(dispatch_get_main_queue(), ^{
+			// do something cool on the UI
+		});
+	}
 
+##Geolocator API Usage
+
+        #import "TTGeolocatorClient.h"
+        #import "TTGeolocatorClientDelegate.h"
+	#import "TTLocation.h"
+
+        TTGeolocatorClient *geolocatorApi = [[TTGeolocatorClient alloc] initWithAPIKey:@"your_api_token"];
+        [geolocatorApi setDelegate:self]; // check out the "TTGeolocatorClientDelegate section below"
+
+        [geolocatorApi geolocate:@"San Francisco, CA"]; // don't URL-encode your geolocator query here!
+
+##TTGeolocatorClientDelegate
+
+	#pragma mark TTGeolocatorClientDelegate
+
+	- (void)didReceiveGeolocationResponse:(NSArray *)locations {
+		for (NSDictionary *locationDict in locations) {
+			TTLocation *location = [TTLocation from:locationDict]; // reference model
+
+			// do something cool
+		}
+
+		dispatch_async(dispatch_get_main_queue(), ^{
+			// do something cool on the UI
+		});
+	}
+
+##Unit Tests
+
+The included unit tests essentially mock the behavior of the various
+TTAPIClientConnectionDelegate subclasses, all of which conform to the
+NSURLConnectionDataDelegate protocol.
 
 ##License
 
-The threetapsAPI library and related files, including the example iPhone
-application and the unit tests, are all copyright (c) 2011 3taps inc. 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-This software is licensed under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance with the License.
-You may obtain a copy of the License at 
+http://www.apache.org/licenses/LICENSE-2.0
 
-  http://www.apache.org/licenses/LICENSE-2.0 
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-Unless required by applicable law or agreed to in writing, software distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations under the License.
+##Questions & comments
 
-
+Direct inquiries to our twitter account (@3taps) or via email to
+Kyle (kthomas at 3taps.com).
+
