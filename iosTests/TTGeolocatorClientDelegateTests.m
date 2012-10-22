@@ -23,7 +23,11 @@
 
 #import "TTGeolocatorClientDelegateTests.h"
 
+<<<<<<< HEAD
 static NSString * TEST_3TAPS_API_KEY = @"75c8e3851e874fe692a8199022a06645"; // this key is seriously limited... get your own key!
+=======
+static NSString * TEST_3TAPS_API_KEY = @"9334vjku57dus2etf4bxve95"; // this key is seriously limited... get your own key!
+>>>>>>> db32594f090926434872e2e46ca2646adc11d2ba
 
 @implementation TTGeolocatorClientDelegateTests
 
@@ -58,12 +62,20 @@ static NSString * TEST_3TAPS_API_KEY = @"75c8e3851e874fe692a8199022a06645"; // t
 	[mockConnDelegate connection:nil didReceiveData:[responseEntity dataUsingEncoding:NSUTF8StringEncoding]]; // populate response data
 	[mockConnDelegate connectionDidFinishLoading:nil]; // connection object isn't actually needed here.
 	
+<<<<<<< HEAD
 	// geolocator delegate callback has fired at this time
+=======
+	// search delegate callback has fired at this time
+>>>>>>> db32594f090926434872e2e46ca2646adc11d2ba
 	
 	[self verifyLocations];
 }
 
+<<<<<<< HEAD
 #pragma mark TTGeolocatorClientDelegate
+=======
+#pragma mark TTSearchDelegate
+>>>>>>> db32594f090926434872e2e46ca2646adc11d2ba
 
 - (void)didReceiveGeolocationResponse:(NSArray *)locations {
 	_locations = locations;

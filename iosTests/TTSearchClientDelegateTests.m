@@ -23,7 +23,11 @@
 
 #import "TTSearchClientDelegateTests.h"
 
+<<<<<<< HEAD
 static NSString * TEST_3TAPS_API_KEY = @"75c8e3851e874fe692a8199022a06645"; // this key is seriously limited... get your own key!
+=======
+static NSString * TEST_3TAPS_API_KEY = @"9334vjku57dus2etf4bxve95"; // this key is seriously limited... get your own key!
+>>>>>>> db32594f090926434872e2e46ca2646adc11d2ba
 
 @implementation TTSearchDelegateTests
 
@@ -67,7 +71,11 @@ static NSString * TEST_3TAPS_API_KEY = @"75c8e3851e874fe692a8199022a06645"; // t
 	[self verifySearchResults];
 }
 
+<<<<<<< HEAD
 #pragma mark TTSearchClientDelegate
+=======
+#pragma mark TTSearchDelegate
+>>>>>>> db32594f090926434872e2e46ca2646adc11d2ba
 
 - (void)didReceiveSearchResponse:(NSArray *)results execTimeMs:(int)execTime numResults:(int)numResults {
 	_results = results;
