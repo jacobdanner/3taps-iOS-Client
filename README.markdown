@@ -7,9 +7,8 @@ and all API calls made under the covers are asynchronous.
 
 ##Pre-requisites
 
-1) Mashery ID -- http://register.3taps.com/member/register
-2) API key for your application -- http://register.3taps.com/apps/register
-3) SBJSON, written by Stig Brautaset (it's included with the source distribution, 
+1) 3taps API key for your application -- http://register.3taps.com
+2) SBJSON, written by Stig Brautaset (it's included with the source distribution, 
 but worth mentioning here also)
 
 ##Search API Usage
