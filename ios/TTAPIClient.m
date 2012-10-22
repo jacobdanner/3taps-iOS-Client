@@ -23,7 +23,7 @@
 
 #import "TTAPIClient.h"
 
-static const NSString * THREETAPS_API_BASE_URL = @"http://api.3taps.com";
+static const NSString * THREETAPS_API_BASE_URL = @"http://3taps.net";
 static const NSString * THREETAPS_API_SEARCH_URI = @"/search";
 static const NSString * THREETAPS_API_GEOLOCATE_URI = @"/geolocate";
 
